@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Digital Content Platform</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #siteName {
+            font-size: 24px;
+            font-weight: bold;
+            border: none;
+            background: transparent;
+            padding: 5px;
+        }
+
+        #siteName:focus {
+            outline: none;
+            background: #f0f0f0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .content-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .video-preview {
+            width: 100%;
+            height: 200px;
+            background: #000;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .price-tag {
+            color: #00a400;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        button {
+            background: #1877f2;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .admin-panel {
+            margin-top: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <input type="text" id="siteName" value="My Content Store">
+        <button onclick="updateSiteName()">Save Name</button>
+    </div>
+
+    <div class="content-grid" id="contentGrid"></div>
+
+    <div class="admin-panel">
+        <h2>Add New Content</h2>
+        <input type="text" id="contentTitle" placeholder="Content Title">
+        <textarea id="contentDesc" placeholder="Description"></textarea>
+        <input type="number" id="contentPrice" placeholder="Price">
+        <input type="text" id="contentVideo" placeholder="Video URL">
+        <button onclick="addNewContent()">Add Content</button>
+    </div>
+
+    <script>
+        // Initialize or load existing data
+        let siteData = JSON.parse(localStorage.getItem('siteData')) || {
+            name: 'My Content Store',
+            content: []
+        };
+
+        // Initial render
+        function renderContent() {
+            document.getElementById('siteName').value = siteData.name;
